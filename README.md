@@ -1,18 +1,18 @@
-# Kestrel — Secure P2P Messaging ----------
+# Kestrel — Secure P2P Messaging 
 
 Kestrel is a peer-to-peer instant messaging tool for two users that supports encrypted text, photo, voice memo, and file transfer. 
 Messages are encrypted using either a 56-bit (DES) or 128-bit (AES) key, derived from
 a shared passphrase via PBKDF2 — the passphrase itself is never sent over
 the network or used directly as the encryption key.
 
-## Requirements ----------
+## Requirements 
 
 - **Java Development Kit (JDK) 17 or newer** installed on every device you
   plan to run it on
 - Both devices on the **same local network** (same WiFi) if testing across
   two separate devices
 
-### Checking if Java is installed ----------
+### Checking if Java is installed 
 
 Open a terminal and run: java -version
 
@@ -21,13 +21,12 @@ If this prints a version number, you're set. If not, install a JDK:
   for your OS) and run it
 - Confirm afterward by running `java -version` again
 
-## Getting the code ----------
-
+## Getting the code 
 Clone the repository and cd into it:
 git clone https://github.com/<your-username>/kestrel.git
 cd kestrel
 
-## Building ----------
+## Building
 
 **Windows (PowerShell):**
 javac -d bin (Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object FullName)
@@ -37,7 +36,7 @@ javac -d bin $(find src -name "*.java")
 
 Both commands compile every `.java` file under `src` into a `bin` folder.
 
-## Running — Option 1: Testing on one device (two terminal/GUI windows) ----------
+## Running — Option 1: Testing on one device (two terminal/GUI windows) 
 
 Open two terminal windows in the project folder.
 
@@ -50,8 +49,7 @@ java -cp bin Main
 Two chat windows will open. If one window seems to be missing, check behind
 your other open windows — both processes launch their own separate GUI.
 
-## Running — Option 2: Testing on two separate devices ----------
-
+## Running — Option 2: Testing on two separate devices 
 **Step 1 — Find the IP address of the device that will listen.**
 
 On the listening device:
@@ -76,8 +74,7 @@ Firewall (or macOS's firewall) asks whether to allow the connection, click
 Both devices must be on the same WiFi network for this to work without
 additional router configuration.
 
-## Using the app ----------
-
+## Using the app 
 - **Send a text message**: type in the input box at the bottom and press
   Enter or click Send
 - **Send a photo, voice memo, or file**: click the **+** button next to the
@@ -93,11 +90,11 @@ additional router configuration.
 - The bottom pane shows the hex-encoded ciphertext for every message sent,
   so you can see the actual encrypted bytes alongside the plaintext chat
 
-## Key length and passphrase ----------
+## Key length and passphrase 
 The shared passphrase and key length (56-bit / 128-bit) are currently set
 in `Main.java`:
 ```java
-String passphrase = "sharedpassword";
+String passphrase = <replace with your password>;
 boolean use128bit = true; // set to false to use 56-bit (DES) instead
 ```
 Both devices must use the **identical passphrase and key length setting**
@@ -123,3 +120,4 @@ ChatGUI.java the chat window (Swing)
 - Voice memo playback works reliably only for `.wav` files
 - The passphrase and key length are set in code rather than prompted at
   runtime
+- If you are using two devices, both devices must have the use128bit boolean set to the same value
