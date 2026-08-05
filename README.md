@@ -115,6 +115,10 @@ GUI/
 ChatGUI.java the chat window (Swing)
 
 ## Known limitations
+- Both devices must be on the same local network (same WiFi/LAN); the
+  app does not support connecting across different networks over the
+  public internet without additional router configuration (e.g. port
+  forwarding)
 - Inline photo preview supports JPEG, PNG, GIF, and BMP; other image
   formats will send and can be saved, but may not preview correctly
 - Voice memo playback works reliably only for `.wav` files
