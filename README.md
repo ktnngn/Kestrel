@@ -28,13 +28,15 @@ cd kestrel
 
 ## Building
 
+Both commands compile every `.java` file under `src` into a `bin` folder. Pick the one compatible with your operating system and run the commands in your terminal
+
 **Windows (PowerShell):**
 javac -d bin (Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object FullName)
 
 **Mac/Linux (Terminal):**
 javac -d bin $(find src -name "*.java")
 
-Both commands compile every `.java` file under `src` into a `bin` folder.
+
 
 ## Running — Option 1: Testing on one device (two terminal/GUI windows) 
 
