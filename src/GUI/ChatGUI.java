@@ -213,16 +213,23 @@ private Object[] unpackFilename(byte[] packed) throws IOException {
         switch (type) {
             case PIC -> {
                 ImageIcon icon = new ImageIcon(data);
-                Image scaled = icon.getImage().getScaledInstance(220, -1, Image.SCALE_SMOOTH);
-                JLabel imageLabel = new JLabel(new ImageIcon(scaled));
-                imageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-                bubble.add(imageLabel);
+                if (icon.getIconWidth() <= 0) {
+                    bubble.add(formatWarning("Preview not supported for this image format (try JPEG, PNG, GIF, or BMP)."));
+                } else {
+                    Image scaled = icon.getImage().getScaledInstance(220, -1, Image.SCALE_SMOOTH);
+                    JLabel imageLabel = new JLabel(new ImageIcon(scaled));
+                    imageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    bubble.add(imageLabel);
+                }
             }
             case VOICE -> {
                 JButton playBtn = new JButton("Play voice memo");
                 playBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
                 playBtn.addActionListener(e -> playAudio(outFile));
                 bubble.add(playBtn);
+                if (!filename.toLowerCase().endsWith(".wav")) {
+                    bubble.add(formatWarning("Playback works best with .wav files; other formats may not play."));
+                }
             }
             default -> {
                 JButton openBtn = new JButton("Open " + outFile.getName());
@@ -245,6 +252,11 @@ private Object[] unpackFilename(byte[] packed) throws IOException {
     }
 }
 
+private JLabel formatWarning(String text) {
+    JLabel warning = new JLabel("<html><i style='color:gray;font-size:90%'>" + text + "</i></html>");
+    warning.setAlignmentX(Component.LEFT_ALIGNMENT);
+    return warning;
+}
     private void playAudio(File file) {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
